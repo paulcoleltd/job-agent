@@ -1,0 +1,52 @@
+# Node
+node_modules/
+.pnpm-store/
+.next/
+out/
+dist/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# Docker volumes
+pgdata/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Coverage / reports
+coverage/
+htmlcov/
+.coverage
+*.lcov
+allure-results/
+TestReport.html
+test-results/
+playwright-report/
+
+# Test databases
+*.db
+*.sqlite
+
+# Uploads
+/tmp/job-agent-docs/
