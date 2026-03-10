@@ -1,54 +1,56 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Optional, List
 from datetime import datetime
 import uuid
 
+
 class JobOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: uuid.UUID
     source: str
     company: str
     title: str
-    location: Optional[str]
-    remote_type: Optional[str]
-    salary_min: Optional[int]
-    salary_max: Optional[int]
-    description: Optional[str]
-    apply_url: Optional[str]
-    match_score: Optional[float]
+    location: Optional[str] = None
+    remote_type: Optional[str] = None
+    salary_min: Optional[int] = None
+    salary_max: Optional[int] = None
+    description: Optional[str] = None
+    apply_url: Optional[str] = None
+    match_score: Optional[float] = None
     status: str
-    discovered_at: Optional[datetime]
+    discovered_at: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
 
 class ApplicationOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: uuid.UUID
     job_id: uuid.UUID
     status: str
-    submitted_at: Optional[datetime]
-    submission_mode: Optional[str]
-    notes: Optional[str]
-    created_at: Optional[datetime]
+    submitted_at: Optional[datetime] = None
+    submission_mode: Optional[str] = None
+    notes: Optional[str] = None
+    created_at: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
 
 class ApplicationCreate(BaseModel):
     job_id: uuid.UUID
     notes: Optional[str] = None
+
 
 class ProfileUpdate(BaseModel):
     cv_text: Optional[str] = None
     skills: Optional[List[str]] = None
     preferences: Optional[dict] = None
 
+
 class AgentRunOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: uuid.UUID
     agent_name: str
     started_at: datetime
-    ended_at: Optional[datetime]
+    ended_at: Optional[datetime] = None
     status: str
-    summary: Optional[dict]
-
-    class Config:
-        from_attributes = True
+    summary: Optional[dict] = None

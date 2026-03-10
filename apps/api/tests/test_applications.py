@@ -14,7 +14,7 @@ def seed_job():
             await db.commit()
             await db.refresh(job)
             return str(job.id)
-    return asyncio.get_event_loop().run_until_complete(_seed())
+    return asyncio.run(_seed())
 
 
 def test_list_applications_empty(client):
@@ -75,7 +75,7 @@ def test_prepare_application_no_job(client):
             await db.commit()
             await db.refresh(app)
             return str(app.id)
-    app_id = asyncio.get_event_loop().run_until_complete(_seed())
+    app_id = asyncio.run(_seed())
     resp = client.post(f"/applications/{app_id}/prepare")
     assert resp.status_code == 400
 

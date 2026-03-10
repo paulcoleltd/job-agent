@@ -1,9 +1,10 @@
 """Shared pytest fixtures for API tests."""
 import sys
 import os
+import asyncio
 import pytest
 
-# Ensure packages/ is importable
+# Ensure packages/ and api/ are importable
 _PACKAGES_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../packages"))
 _API_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 for p in [_PACKAGES_DIR, _API_DIR]:
@@ -34,8 +35,7 @@ async def _override_get_db():
 
 @pytest.fixture(scope="function")
 def client():
-    import asyncio
-    asyncio.get_event_loop().run_until_complete(_init_db())
+    asyncio.run(_init_db())
 
     from main import app
     from database import get_db
