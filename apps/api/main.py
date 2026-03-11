@@ -10,8 +10,18 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import jobs, applications, agents, documents, profile
 from config import settings
+from database import engine, Base
 
 app = FastAPI(title="Job Agent API", version="1.0.0")
+
+
+@app.on_event("startup")
+async def startup():
+    """Auto-create tables when using SQLite (local dev). PostgreSQL uses Alembic."""
+    if "sqlite" in str(engine.url):
+        import models  # noqa: ensure all models are registered
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
 
 # In production restrict this to your actual frontend domain
 _CORS_ORIGINS = os.getenv("CORS_ORIGINS", "*").split(",")
